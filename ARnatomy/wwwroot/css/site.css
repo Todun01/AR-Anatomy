@@ -846,13 +846,13 @@ button.swiper-pagination-bullet {
 }
 
 .css-10k7bzc .navbar-container .navabr-logo-area .navbar-logo-main {
-    width: 180px;
+    width: 300px;
     height: 35px;
 }
 
 @media (max-width: 1132px) {
     .css-10k7bzc .navbar-container .navabr-logo-area .navbar-logo-main {
-        width: 140px;
+        width: 200px;
         height: 27px;
     }
 }
@@ -1712,7 +1712,7 @@ button.swiper-pagination-bullet {
     display: flex;
     -webkit-box-pack: justify;
     -webkit-justify-content: space-between;
-    justify-content: space-between;
+    justify-content: space-around;
     -webkit-box-flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
