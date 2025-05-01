@@ -1,0 +1,57 @@
+# ===== ASP.NET Core / .NET Build Output =====
+bin/
+obj/
+out/
+*.dll
+*.exe
+*.app
+*.pdb
+*.cache
+*.log
+*.tlog
+*.tmp
+
+# ===== Visual Studio / VS Code =====
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.sln.iml
+
+# ===== ASP.NET Secrets and Configs =====
+secrets.json
+appsettings.Development.json
+
+# ===== Frontend / Web Assets (if using NPM, Webpack, etc) =====
+node_modules/
+dist/
+build/
+
+# ===== OS Generated Files =====
+.DS_Store
+Thumbs.db
+
+# ===== Log Files =====
+*.log
+
+# ===== Publish Output =====
+publish/
+*.nupkg
+*.snupkg
+
+# ===== A-Frame or Static Assets (optional) =====
+*.glb
+*.gltf
+*.unitypackage
+*.vsidx
+
+# ===== Local tooling or temp scripts =====
+.env
+.env.local
+*.bak
+*.old
+*.orig
