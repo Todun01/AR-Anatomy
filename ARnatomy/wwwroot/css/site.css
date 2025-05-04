@@ -3263,3 +3263,8 @@ button.swiper-pagination-bullet {
     color: #2e979b;
     background-color: white;
 }
+    .login-btn:hover {
+        color: white;
+        background-color: #2e979b;
+
+    }
