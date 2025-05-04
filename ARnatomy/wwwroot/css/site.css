@@ -3266,5 +3266,5 @@ button.swiper-pagination-bullet {
     .login-btn:hover {
         color: white;
         background-color: #2e979b;
-
+        border: 3px solid #2e979b;
     }

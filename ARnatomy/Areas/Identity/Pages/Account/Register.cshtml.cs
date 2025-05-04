@@ -77,6 +77,8 @@ namespace ARnatomy.Areas.Identity.Pages.Account
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
+            public string? UserName { get; set; }
+
             [Required]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
@@ -127,6 +129,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser
                 {
+                    UserName = Input.Email,
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
@@ -134,7 +137,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                     School = Input.School
                 };
 
-
+                
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -171,7 +174,8 @@ namespace ARnatomy.Areas.Identity.Pages.Account
             }
 
             // If we got this far, something failed, redisplay form
-            return Page();
+            return Page(); // refreshes with GET
+            
         }
 
         private ApplicationUser CreateUser()
