@@ -90,6 +90,10 @@ namespace ARnatomy.Areas.Identity.Pages.Account
             public string? CourseOfStudy { get; set; }
 
             [Required]
+            [Display(Name = "Role")]
+            public string Role { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -134,7 +138,9 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     CourseOfStudy = Input.CourseOfStudy,
-                    School = Input.School
+                    School = Input.School,
+                    Role = Input.Role
+
                 };
 
                 

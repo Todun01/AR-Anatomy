@@ -9,5 +9,7 @@ namespace ARnatomy.Models
         public string Email {  get; set; }
         public string? School { get; set; }
         public string? CourseOfStudy { get; set; }
+        
+        public string Role { get; set; }
     }
 }
