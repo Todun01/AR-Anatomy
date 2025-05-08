@@ -50,7 +50,8 @@
 @* </html> *@
 
 
-
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,75 +59,75 @@
         ARNATOMY: Teaching Human Organ Systems in Anatomy using Augmented Reality
     </title>
     <meta name="description"
-          content="Exploring human organ systems in anatomy with augmented reality."/>
+    content="Exploring human organ systems in anatomy with augmented reality."/>
     <meta property="og:title"
-          content="ARNATOMY: Providing an immersive, inetractive augmented reality experience of the human organ systems in anatomy." />
+    content="ARNATOMY: Providing an immersive, inetractive augmented reality experience of the human organ systems in anatomy." />
     <meta property="og:description"
-          content="Exploring human organ systems in anatomy with augmented reality."/>
+    content="Exploring human organ systems in anatomy with augmented reality."/>
     <meta property="og:type" content="Article" />
     <meta property="og:url" content="body.html" />
     <meta property="og:image"
-          content="~/img/AR-NATOMY_Icon_-2-removebg-preview.png" />
+    content="~/img/AR-NATOMY_Icon_-2-removebg-preview.png" />
     <meta property="og:site_name" content="ARNATOMY" />
     <link rel="canonical" href="body.html" />
     <meta name="msapplication-TileColor" content="#ffc40d" />
     <meta name="theme-color" content="#ffffff" />
     <link rel="preload"
-          href="https://www.innerbody.com/fonts/pn-700.woff2"
-          as="font"
-          type="font/woff2"
-          crossorigin="anonymous" />
+    href="https://www.innerbody.com/fonts/pn-700.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous" />
     <link rel="preload"
-          href="https://www.innerbody.com/fonts/pn-800.woff2"
-          as="font"
-          type="font/woff2"
-          crossorigin="anonymous" />
+    href="https://www.innerbody.com/fonts/pn-800.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous" />
     <link rel="preload"
-          href="https://www.innerbody.com/fonts/pn-400.woff2"
-          as="font"
-          type="font/woff2"
-          crossorigin="anonymous" />
+    href="https://www.innerbody.com/fonts/pn-400.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous" />
     <link rel="preload"
-          href="https://www.innerbody.com/fonts/pn-400-i.woff2"
-          as="font"
-          type="font/woff2"
-          crossorigin="anonymous" />
+    href="https://www.innerbody.com/fonts/pn-400-i.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
     <script>
         (function (w, d, s, l, i) {
-          w[l] = w[l] || [];
-          w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-          var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s),
-            dl = l != "dataLayer" ? "&l=" + l : "";
-          j.async = true;
-          j.src =
-            "../../www.googletagmanager.com/gtm5445.html?id=" + i + dl;
-          f.parentNode.insertBefore(j, f);
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src =
+        "../../www.googletagmanager.com/gtm5445.html?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
         })(window, document, "script", "dataLayer", "GTM-MPWLGDP");
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="content-type"
-          content="text/html;charset=utf-8" />
+    content="text/html;charset=utf-8" />
     <meta name="next-head-count" content="2" />
     <link rel="apple-touch-icon"
-          sizes="180x180"
-          href="~/img/AR-NATOMY_Icon_-2-removebg-preview.png" />
+    sizes="180x180"
+    href="~/img/AR-NATOMY_Icon_-2-removebg-preview.png" />
     <link rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="~/img/AR-NATOMY_Icon_-2-removebg-preview.png" />
+    type="image/png"
+    sizes="32x32"
+    href="~/img/AR-NATOMY_Icon_-2-removebg-preview.png" />
     <link rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="~/img/AR-NATOMY_Icon_-2-removebg-preview.png" />
+    type="image/png"
+    sizes="16x16"
+    href="~/img/AR-NATOMY_Icon_-2-removebg-preview.png" />
     <link rel="preload"
-          href="../Views/Shared/_Layout.cshtml.css"
-          as="style" />
+    href="../Views/Shared/_Layout.cshtml.css"
+    as="style" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    
+
 </head>
 <body>
     <div style="height: 100vh">
@@ -136,13 +137,21 @@
                     <div class="navabr-logo-area css-0 logo" style="min-width: 90%;width: 93%;justify-content: center;">
                         <a asp-controller="Home"
                         asp-action="Index"
-                           aria-label="AR-NATOMY Logo">
+                        aria-label="AR-NATOMY Logo">
                             <img src="~/img/AR-NATOMY LOGO -spaced.png" class=" chakra-icon navbar-logo-main css-onkibi" />
                         </a>
                     </div>
-                    <div class="css-0 log-in" style="min-width: 5%;width: 7%;justify-content: end;display: flex;align-content: center;flex-wrap: wrap;">
-                        <a asp-area="Identity" asp-page="/Account/Login" style="text-decoration:none;border: 3px solid #2e979b; padding: 0 5px 0 5px; border-radius: 7px; color: #2e979b; background-color: white;"><strong>Log in</strong></a>
-                    </div>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+
+                    }
+                    else
+                    {
+                        <div class="css-0 log-in" style="min-width: 5%;width: 7%;justify-content: end;display: flex;align-content: center;flex-wrap: wrap;">
+                            <a asp-area="Identity" asp-page="/Account/Login" style="text-decoration:none;border: 3px solid #2e979b; padding: 0 5px 0 5px; border-radius: 7px; color: #2e979b; background-color: white;"><strong>Log in</strong></a>
+                        </div>
+                    }
+            
                 </div>
             </div>
             <div role="main" class="css-14zquuz">
