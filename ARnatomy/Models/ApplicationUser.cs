@@ -16,7 +16,7 @@ namespace ARnatomy.Models
 
     }
 
-    public class OrganModels
+    public class OrganModel
     {
         public ICollection<Feedback> Feedback { get; set; } = new List<Feedback>();
         public int Id { get; set; }
@@ -30,7 +30,7 @@ namespace ARnatomy.Models
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
         public int OrganModelId { get; set; }
-        public OrganModels OrganModels { get; set; }
+        public OrganModel OrganModel { get; set; }
         public string Comment { get; set; }
         public float Rating { get; set; }
     }
