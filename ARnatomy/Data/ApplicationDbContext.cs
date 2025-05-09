@@ -10,7 +10,8 @@ namespace ARnatomy.Data
             : base(options)
         {
         }
-        public DbSet<OrganModels> OrganModels { get; set; } // Add this line
+        public DbSet<OrganModels> OrganModels { get; set; } 
+        public DbSet<Feedback> Feedback {  get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

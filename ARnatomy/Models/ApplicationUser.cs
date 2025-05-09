@@ -4,6 +4,7 @@ namespace ARnatomy.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public ICollection<Feedback> Feedback { get; set; } = new List<Feedback>();
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email {  get; set; }
@@ -11,5 +12,29 @@ namespace ARnatomy.Models
         public string? CourseOfStudy { get; set; }
         
         public string Role { get; set; }
+
+
     }
+
+    public class OrganModels
+    {
+        public ICollection<Feedback> Feedback { get; set; } = new List<Feedback>();
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string FilePath { get; set; }
+    }
+    public class Feedback
+    {
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
+        public int OrganModelId { get; set; }
+        public OrganModels OrganModels { get; set; }
+        public string Comment { get; set; }
+        public float Rating { get; set; }
+    }
+
+
+
 }
