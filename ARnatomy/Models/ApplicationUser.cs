@@ -32,7 +32,7 @@ namespace ARnatomy.Models
         public int OrganModelId { get; set; }
         public OrganModel OrganModel { get; set; }
         public string Comment { get; set; }
-        public float Rating { get; set; }
+        public double Rating { get; set; }
     }
 
 
