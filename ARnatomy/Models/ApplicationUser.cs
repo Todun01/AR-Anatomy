@@ -16,6 +16,7 @@ namespace ARnatomy.Models
 
     }
 
+    // 3d models table
     public class OrganModel
     {
         public ICollection<Feedback> Feedback { get; set; } = new List<Feedback>();
