@@ -26,6 +26,8 @@ namespace ARnatomy.Models
         public string Description { get; set; }
         public string FilePath { get; set; }
     }
+    
+    // feedback table
     public class Feedback
     {
         public int Id { get; set; }
