@@ -2,6 +2,7 @@
 
 namespace ARnatomy.Models
 {
+    // users
     public class ApplicationUser : IdentityUser
     {
         public ICollection<Feedback> Feedback { get; set; } = new List<Feedback>();
