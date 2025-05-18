@@ -47,6 +47,17 @@ namespace ARnatomy.Controllers
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
         }
+        public IActionResult DigestiveSystem()
+        {
+            if (_signInManager.IsSignedIn(User))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
