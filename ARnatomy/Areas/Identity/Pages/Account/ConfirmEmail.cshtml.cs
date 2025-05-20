@@ -41,7 +41,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
 
             var mailMessage = new MailMessage
             {
-                From = new MailAddress(_configuration["Email:Smtp:From"]),
+                From = new MailAddress(_configuration["SmtpSettings:From"]),
                 Subject = subject,
                 Body = htmlMessage,
                 IsBodyHtml = true
