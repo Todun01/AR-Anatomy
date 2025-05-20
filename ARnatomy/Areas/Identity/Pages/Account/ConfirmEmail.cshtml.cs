@@ -4,17 +4,55 @@
 
 using System;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using ARnatomy.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace ARnatomy.Areas.Identity.Pages.Account
 {
+    public class EmailSender : IEmailSender
+    {
+        private readonly IConfiguration _configuration;
+
+        public EmailSender(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public async Task SendEmailAsync(string email, string subject, string htmlMessage)
+        {
+            var smtpClient = new SmtpClient
+            {
+                Host = _configuration["SmtpSettings:Host"],
+                Port = int.Parse(_configuration["SmtpSettings:Port"]),
+                EnableSsl = true,
+                Credentials = new NetworkCredential(
+                    _configuration["SmtpSettings:Username"],
+                    _configuration["SmtpSettings:Password"])
+            };
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress(_configuration["Email:Smtp:From"]),
+                Subject = subject,
+                Body = htmlMessage,
+                IsBodyHtml = true
+            };
+
+            mailMessage.To.Add(email);
+
+            await smtpClient.SendMailAsync(mailMessage);
+        }
+    }
+
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
