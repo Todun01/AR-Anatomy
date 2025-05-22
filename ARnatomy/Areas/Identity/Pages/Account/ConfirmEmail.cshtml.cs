@@ -44,7 +44,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                 From = new MailAddress(_configuration["SmtpSettings:From"]),
                 Subject = subject,// subject of mail
                 Body = htmlMessage, // body of email
-                IsBodyHtml = true
+                IsBodyHtml = true // boolean check
             };
 
             mailMessage.To.Add(email);
