@@ -170,7 +170,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return Page();
                     }
                 }
                 foreach (var error in result.Errors)
