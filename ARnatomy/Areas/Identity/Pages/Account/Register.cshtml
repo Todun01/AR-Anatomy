@@ -15,6 +15,7 @@
                 </div>
                 <h2 style="font-family: 'Didact Gothic', sans-serif;text-align: center;">Register to begin!</h2>
             <hr />
+            <partial name="_ValidationScriptsPartial" />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.FirstName" class="form-control" autocomplete="on" aria-required="true" placeholder="John"/>
@@ -50,12 +51,13 @@
             <div class="form-floating mb-3">
                 <div class="col-sm-10" style="display:flex;justify-content:space-around;width:100%">
                     <div class="form-check form-check-inline">
-                        <input asp-for="Input.Role" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="student" /> Student
+                        <input asp-for="Input.Role" class="form-check-input" type="radio" name="Input.Role" id="inlineRadio1" value="student" /> Student
                     </div>
                     <div class="form-check form-check-inline">
-                        <input asp-for="Input.Role" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="instructor" /> Instructor
+                        <input asp-for="Input.Role" class="form-check-input" type="radio" name="Input.Role" id="inlineRadio2" value="instructor" /> Instructor
                     </div>
                 </div>
+                <span asp-validation-for="Input.Role" class="text-danger"></span>
 
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary login-btn">Register</button>
@@ -68,6 +70,6 @@
     </div>
 </div>
 
-@* @section Scripts { *@
-@*     <partial name="_ValidationScriptsPartial" /> *@
-@* } *@
+@section Scripts { 
+     <partial name="_ValidationScriptsPartial" /> 
+ }
