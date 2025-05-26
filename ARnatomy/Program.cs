@@ -1,6 +1,7 @@
 using ARnatomy.Areas.Identity.Pages.Account;
 using ARnatomy.Data;
 using ARnatomy.Models;
+using ARnatomy.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
