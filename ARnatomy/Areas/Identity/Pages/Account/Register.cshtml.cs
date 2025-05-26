@@ -159,9 +159,18 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    try
+                    {
+                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    }
+                    catch (Exception ex) {
+                        _logger.LogError($"Email sending failed: {ex.Message}");
+                        ModelState.AddModelError(string.Empty, "There was a problem sending the confirmation email.");
+                        return Page();
+                    }
+
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -170,7 +179,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return Page();
+                        return LocalRedirect(returnUrl);
                     }
                 }
                 foreach (var error in result.Errors)
