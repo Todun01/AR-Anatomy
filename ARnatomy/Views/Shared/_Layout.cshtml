@@ -143,7 +143,12 @@
                     </div>
                     @if (SignInManager.IsSignedIn(User))
                     {
-
+                        <div class="css-0 log-in" style="min-width: 5%;width: 7%;justify-content: end;display: flex;align-content: center;flex-wrap: wrap;">
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                                <button type="submit" class="nav-link btn btn-link text-dark" style="text-decoration:none;border: 3px solid #2e979b; padding: 0 5px 0 5px; border-radius: 7px; color: #2e979b; background-color: white;">Logout</button>
+                            </form>
+                        </div>
+                        
                     }
                     else
                     {
