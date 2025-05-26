@@ -3268,3 +3268,8 @@ button.swiper-pagination-bullet {
         background-color: #2e979b;
         border: 3px solid #2e979b;
     }
+@media (max-width: 820px){
+    .resend-email {
+        margin-top: 20% !important;
+    }
+}
