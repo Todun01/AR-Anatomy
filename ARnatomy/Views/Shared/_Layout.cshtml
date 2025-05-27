@@ -143,11 +143,32 @@
                     </div>
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <div class="css-0 log-in" style="min-width: 5%;width: 7%;justify-content: end;display: flex;align-content: center;flex-wrap: wrap;">
-                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                                <button type="submit" class="nav-link btn btn-link text-dark" style="text-decoration:none;border: 3px solid #2e979b; padding: 0 5px 0 5px; border-radius: 7px; color: #2e979b; background-color: white;">Logout</button>
-                            </form>
+                        <button type="button" class="css-0 log-in" data-bs-toggle="modal" data-bs-target="#logoutModal" style="border: 3px solid #2e979b; padding: 0 5px 0 5px; border-radius: 7px; color: #2e979b; background-color: white;min-width: 5%;width: 7%;max-width: fit-content;justify-content: center;display: flex;align-content: center;flex-wrap: wrap;">
+                            Logout
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to logout?</h5>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="justify-content:center;display:flex">
+                                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                                            <button type="submit" class="nav-link btn btn-link text-dark" style="text-decoration:none;border: 3px solid #2e979b; padding: 0 5px 0 5px; border-radius: 7px; color: #2e979b; background-color: white;">Logout</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                  
                         
                     }
                     else
