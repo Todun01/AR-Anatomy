@@ -58,7 +58,7 @@ namespace ARnatomy.Controllers
                 return RedirectToPage("/Account/Login", new { area = "Identity" }); 
             }
         }
-        public IActionResult EndocrineSystem() {
+        public IActionResult EndocrineSystem() { // endocrine system
             if (_signInManager.IsSignedIn(User))
             {
                 return View();
