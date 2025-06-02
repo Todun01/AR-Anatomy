@@ -47,7 +47,7 @@ namespace ARnatomy.Controllers
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
         }
-        public IActionResult DigestiveSystem()
+        public IActionResult DigestiveSystem() // digestive system
         {
             if (_signInManager.IsSignedIn(User))
             {
@@ -55,7 +55,7 @@ namespace ARnatomy.Controllers
             }
             else
             {
-                return RedirectToPage("/Account/Login", new { area = "Identity" });
+                return RedirectToPage("/Account/Login", new { area = "Identity" }); 
             }
         }
         public IActionResult EndocrineSystem() {
