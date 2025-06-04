@@ -35,7 +35,7 @@ namespace ARnatomy.Models
         public ApplicationUser User { get; set; }
         public int OrganModelId { get; set; }
         public OrganModel OrganModel { get; set; }
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
         public double Rating { get; set; }
     }
 

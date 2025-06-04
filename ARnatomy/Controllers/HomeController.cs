@@ -12,11 +12,13 @@ namespace ARnatomy.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
-        public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             _signInManager = signInManager;
             _context = context;
+            _userManager = userManager;
         }
         
         public IActionResult Index()
@@ -93,6 +95,23 @@ namespace ARnatomy.Controllers
             {
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateFeedback(FeedbackDto feedbackDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(feedbackDto);
+            }
+            var user = await _userManager.GetUserAsync(User);
+            var userId = user?.Id;
+            Feedback feedback = new Feedback()
+            {
+                UserId = userId,
+
+
+            };
+
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
