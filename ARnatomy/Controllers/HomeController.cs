@@ -3,6 +3,7 @@ using System.Net.NetworkInformation;
 using ARnatomy.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using ARnatomy.Data;
 
 namespace ARnatomy.Controllers
 {
@@ -10,13 +11,13 @@ namespace ARnatomy.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
+        private readonly ApplicationDbContext _context;
         public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager)
         {
             _logger = logger;
             _signInManager = signInManager;
         }
-
+        
         public IActionResult Index()
         {
             return View();
@@ -59,17 +60,6 @@ namespace ARnatomy.Controllers
             }
         }
         public IActionResult EndocrineSystem() { // endocrine system
-            if (_signInManager.IsSignedIn(User))
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToPage("/Account/Login", new { area = "Identity" });
-            }
-        }
-        public IActionResult Feedback()
-        {
             if (_signInManager.IsSignedIn(User))
             {
                 return View();
