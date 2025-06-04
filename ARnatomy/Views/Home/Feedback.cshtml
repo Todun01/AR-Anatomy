@@ -9,27 +9,23 @@
                 <form id="account" method="post">
                     <h2 style="font-family: 'Didact Gothic', sans-serif;text-align: center;padding:5%;width:max-content">Rate your experience</h2>
                     <div class="form-group" style="display:flex;flex-direction:column">
-                        <label for="inputState" style="text-align:center">Select an Anatomy Model</label>
-                        <select id="inputState" class="form-control">
+                        <label for="OrganModelId" style="text-align:center">Select an Anatomy Model</label>
+                        <select id="organModelId" name="OrganModelId" class="form-control">
                             <option selected>Select</option>
                             @foreach (var OrganModel in Model){
-                                <option>@OrganModel.Name</option>
+                                <option value="@OrganModel.Id">@OrganModel.Name</option>
                             }
-                            
-                            
+
+
                         </select>
                     </div>
                     <div class="rate-box" style="justify-content:center">
-                        <input type="radio" name="star" id="star0" />
-                        <label class="star" for="star0"></label>
-                        <input type="radio" name="star" id="star1" />
-                        <label class="star" for="star1"></label>
-                        <input type="radio" name="star" id="star2" checked="checked" />
-                        <label class="star" for="star2"></label>
-                        <input type="radio" name="star" id="star3" />
-                        <label class="star" for="star3"></label>
-                        <input type="radio" name="star" id="star4" />
-                        <label class="star" for="star4"></label>
+                        @for(int i =0; i < 5; i ++ )
+                        {
+                            <input type="radio" name="Rating" id="star@i" value="@i+1" />
+                            <label class="star" for="star@i"></label>
+                        }
+                       
                     </div>
                     <textarea cols="30" rows="6" placeholder="Tell us about your experience!"></textarea>
                     <div>

@@ -105,13 +105,19 @@ namespace ARnatomy.Controllers
             }
             var user = await _userManager.GetUserAsync(User);
             var userId = user?.Id;
+            if (userId == null) {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
             Feedback feedback = new Feedback()
             {
                 UserId = userId,
-
-
+                OrganModelId = feedbackDto.OrganModelId,
+                Comment = feedbackDto.Comment,
+                Rating = feedbackDto.Rating,
             };
-
+            _context.Feedback.Add(feedback);
+            _context.SaveChanges();
+            return RedirectToAction("Feedback", "Home");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
