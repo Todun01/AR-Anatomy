@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net.NetworkInformation;
 using ARnatomy.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +13,7 @@ namespace ARnatomy.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        
         public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
@@ -99,15 +100,23 @@ namespace ARnatomy.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFeedback(FeedbackDto feedbackDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(feedbackDto);
-            }
             var user = await _userManager.GetUserAsync(User);
             var userId = user?.Id;
-            if (userId == null) {
+            if (userId == null)
+            {
+                _logger.LogInformation("no user id");
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState
+                    .Where(x => x.Value.Errors.Any())
+                    .Select(x => $"{x.Key}: {string.Join(", ", x.Value.Errors.Select(e => e.ErrorMessage))}");
+
+                _logger.LogError("🚨 VALIDATION FAILED: {Errors}", string.Join(" | ", errors));
+                return RedirectToAction("Feedback", "Home");
+            }
+
             Feedback feedback = new Feedback()
             {
                 UserId = userId,
@@ -117,6 +126,7 @@ namespace ARnatomy.Controllers
             };
             _context.Feedback.Add(feedback);
             _context.SaveChanges();
+            _logger.LogInformation("success");
             return RedirectToAction("Feedback", "Home");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

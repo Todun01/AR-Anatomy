@@ -6,11 +6,11 @@
     <div class="row resend-email" style="margin:10%;justify-content:center">
         <div class="col-md-4 form-container" style="padding:4%">
             <section>
-                <form id="account" method="post">
+                <form method="post" asp-action="CreateFeedback" asp-controller="Home">
                     <h2 style="font-family: 'Didact Gothic', sans-serif;text-align: center;padding:5%;width:max-content">Rate your experience</h2>
                     <div class="form-group" style="display:flex;flex-direction:column">
                         <label for="OrganModelId" style="text-align:center">Select an Anatomy Model</label>
-                        <select id="organModelId" name="OrganModelId" class="form-control">
+                        <select id="organModelId" name="OrganModelId" class="form-control" required>
                             <option selected>Select</option>
                             @foreach (var OrganModel in Model){
                                 <option value="@OrganModel.Id">@OrganModel.Name</option>
@@ -22,14 +22,14 @@
                     <div class="rate-box" style="justify-content:center">
                         @for(int i =0; i < 5; i ++ )
                         {
-                            <input type="radio" name="Rating" id="star@i" value="@i+1" />
-                            <label class="star" for="star@i"></label>
+                            <input type="radio" name="Rating" id="star@(i)" value="@(i + 1)" />
+                            <label class="star" for="star@(i)"></label>
                         }
                        
                     </div>
-                    <textarea cols="30" rows="6" placeholder="Tell us about your experience!"></textarea>
+                    <textarea name="Comment" cols="30" rows="6" placeholder="Tell us about your experience!"></textarea>
                     <div>
-                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary login-btn" asp-action="CreateFeedback" asp-controller="Home">Submit</button>
+                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary login-btn">Submit</button>
                     </div>
                 </form>
             </section>

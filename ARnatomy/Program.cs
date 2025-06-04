@@ -21,6 +21,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>  options.SignIn.
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 var app = builder.Build();
+builder.Logging.AddConsole();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
