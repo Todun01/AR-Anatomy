@@ -68,6 +68,17 @@ namespace ARnatomy.Controllers
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
         }
+        public IActionResult Feedback()
+        {
+            if (_signInManager.IsSignedIn(User))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
+        }
         public IActionResult NervousSystem() // nervous system
         {
             if (_signInManager.IsSignedIn(User))

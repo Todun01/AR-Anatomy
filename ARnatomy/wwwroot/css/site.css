@@ -3321,7 +3321,7 @@ button.swiper-pagination-bullet {
         content: "★";
         display: inline-block;
         font-family: "Potta One", cursive;
-        font-size: 0.6rem;
+        font-size: 24px;
         cursor: pointer;
         color: #0000;
         text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);
