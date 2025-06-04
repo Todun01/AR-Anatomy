@@ -12,10 +12,11 @@ namespace ARnatomy.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
-        public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager)
+        public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context)
         {
             _logger = logger;
             _signInManager = signInManager;
+            _context = context;
         }
         
         public IActionResult Index()
@@ -74,6 +75,19 @@ namespace ARnatomy.Controllers
             if (_signInManager.IsSignedIn(User))
             {
                 return View();
+            }
+            else
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
+        }
+        public IActionResult Feedback()
+        {
+
+            if (_signInManager.IsSignedIn(User))
+            {
+                var organModels = _context.OrganModels.ToList();
+                return View(organModels);
             }
             else
             {
