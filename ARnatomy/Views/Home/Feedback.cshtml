@@ -20,9 +20,9 @@
                         </select>
                     </div>
                     <div class="rate-box" style="justify-content:center">
-                        @for(int i =0; i < 5; i ++ )
+                        @for(int i =5; i > 0; i -- )
                         {
-                            <input type="radio" name="Rating" id="star@(i)" value="@(i + 1)" />
+                            <input type="radio" name="Rating" id="star@(i)" value="@(i)" />
                             <label class="star" for="star@(i)"></label>
                         }
                        
