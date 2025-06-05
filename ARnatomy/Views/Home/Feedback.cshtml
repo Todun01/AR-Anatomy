@@ -7,6 +7,7 @@
         <div class="col-md-4 form-container" style="padding:4%">
             <section>
                 <form method="post" asp-action="CreateFeedback" asp-controller="Home">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                     <h2 style="font-family: 'Didact Gothic', sans-serif;text-align: center;padding:5%;width:max-content">Rate your experience</h2>
                     <div class="form-group" style="display:flex;flex-direction:column">
                         <label for="OrganModelId" style="text-align:center">Select an Anatomy Model</label>
@@ -22,7 +23,7 @@
                     <div class="rate-box" style="justify-content:center">
                         @for(int i =5; i > 0; i -- )
                         {
-                            <input type="radio" name="Rating" id="star@(i)" value="@(i)" />
+                            <input type="radio" name="Rating" id="star@(i)" value="@(i)"/>
                             <label class="star" for="star@(i)"></label>
                         }
                        
@@ -36,3 +37,6 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+ }

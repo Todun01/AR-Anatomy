@@ -2,6 +2,7 @@ using ARnatomy.Areas.Identity.Pages.Account;
 using ARnatomy.Data;
 using ARnatomy.Models;
 using ARnatomy.Services;
+using AspNetCoreHero.ToastNotification;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>  options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
-
+builder.Services.AddNotyf(config =>
+{
+    config.DurationInSeconds = 10;
+    config.IsDismissable = true;
+    config.Position = NotyfPosition.BottomRight;
+});
 var app = builder.Build();
 builder.Logging.AddConsole();
 

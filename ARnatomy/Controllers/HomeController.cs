@@ -4,6 +4,7 @@ using ARnatomy.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using ARnatomy.Data;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace ARnatomy.Controllers
 {
@@ -13,13 +14,20 @@ namespace ARnatomy.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        
-        public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        private readonly INotyfService _notyf;
+
+        public HomeController(
+            ILogger<HomeController> logger, 
+            SignInManager<ApplicationUser> signInManager, 
+            ApplicationDbContext context, 
+            UserManager<ApplicationUser> userManager,
+            INotyfService notyf)
         {
             _logger = logger;
             _signInManager = signInManager;
             _context = context;
             _userManager = userManager;
+            _notyf = notyf;
         }
         
         public IActionResult Index()
@@ -104,16 +112,13 @@ namespace ARnatomy.Controllers
             var userId = user?.Id;
             if (userId == null)
             {
-                _logger.LogInformation("no user id");
+                //_logger.LogInformation("no user id");
+                _notyf.Error("You're not logged in.");
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
             if (!ModelState.IsValid)
             {
-                var errors = ModelState
-                    .Where(x => x.Value.Errors.Any())
-                    .Select(x => $"{x.Key}: {string.Join(", ", x.Value.Errors.Select(e => e.ErrorMessage))}");
-
-                _logger.LogError("🚨 VALIDATION FAILED: {Errors}", string.Join(" | ", errors));
+                _notyf.Error("Please select a model.");
                 return RedirectToAction("Feedback", "Home");
             }
 
@@ -126,7 +131,8 @@ namespace ARnatomy.Controllers
             };
             _context.Feedback.Add(feedback);
             _context.SaveChanges();
-            _logger.LogInformation("success");
+            //_logger.LogInformation("success");
+            _notyf.Success("Feedback submitted successfully!");
             return RedirectToAction("Feedback", "Home");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
