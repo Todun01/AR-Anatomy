@@ -10,3 +10,12 @@ function isIos() {
 
     return iOS || iPadOS;
 }
+document.addEventListener("DOMContentLoaded", function () {
+    if (isIos()) {
+        // full skeletal model
+        document.getElementById("view-in-ar-full").rel = "ar";
+        document.getElementById("view-in-ar-full").href = ""
+    } else {
+        document.getElementById("view-in-ar-full").href = "/AFRAME-Scenes/skeletal-full.html";
+    }
+});

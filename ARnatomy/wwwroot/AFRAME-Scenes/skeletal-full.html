@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- A-Frame and AR.js -->
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
+</head>
+
+<body>
+    <a-scene embedded arjs>
+
+        <a-assets>
+            <a-asset-item id="skeletal-model" src="https://cdn.glitch.global/909cdd29-7d2c-44a9-887f-014447d4d958/FabConvert.com_skeletal%20system.glb?v=1739801302336"></a-asset-item>
+        </a-assets>
+
+        <!-- Interactive 3D Model -->
+        <a-entity gltf-model="#skeletal-model"
+                  position="1 0 -2">
+        </a-entity>
+        <!--     <script>
+              AFRAME.registerComponent("gesture-interactions", {
+                init: function () {
+                  const el = this.el;
+
+                  el.addEventListener("onefingermove", (e) => {
+                    const rotation = el.getAttribute("rotation");
+                    rotation.y -= e.detail.positionChange.x * 2;
+                    rotation.x -= e.detail.positionChange.y * 2;
+                    el.setAttribute("rotation", rotation);
+                  });
+
+                  el.addEventListener("twofingermove", (e) => {
+                    const scale = el.getAttribute("scale");
+                    const d = e.detail.spreadChange / 200;
+                    const newScale = Math.max(0.2, Math.min(scale.x + d, 3));
+                    el.setAttribute("scale", { x: newScale, y: newScale, z: newScale });
+                  });
+                }
+              });
+            </script> -->
+        <!-- Camera Rig with Cursor -->
+        <a-entity id="rig">
+            <a-entity camera
+                      position="1 1 1"
+                      wasd-controls
+                      look-controls>
+                <!--         <a-cursor
+                          id="cursor"
+                          raycaster="objects: .interactive"
+                          fuse="false"
+                          material="color: white; shader: flat">
+                        </a-cursor> -->
+            </a-entity>
+        </a-entity>
+    </a-scene>
+
+</body>
+</html>
