@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using ARnatomy.Controllers;
 using ARnatomy.Models;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
@@ -23,12 +24,18 @@ namespace ARnatomy.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly INotyfService _notyf;
+        private readonly ILogger<ForgotPasswordModel> _logger;
 
-        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender, INotyfService notyf)
+        public ForgotPasswordModel(
+            UserManager<ApplicationUser> userManager, 
+            IEmailSender emailSender, 
+            INotyfService notyf,
+            ILogger<ForgotPasswordModel> logger)
         {
             _userManager = userManager;
             _emailSender = emailSender;
             _notyf = notyf;
+            _logger = logger;
         }
 
         /// <summary>
@@ -60,8 +67,9 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
+                    _logger.LogInformation(Input.Email);
                     _notyf.Error("Email does not exist");
-                    return RedirectToPage("./ForgotPasswordConfirmation");
+                    return RedirectToPage("./ForgotPassword");
                 }
 
                 // For more information on how to enable account confirmation and password reset please
