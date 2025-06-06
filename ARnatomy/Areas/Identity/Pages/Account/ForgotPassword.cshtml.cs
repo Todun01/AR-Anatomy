@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using ARnatomy.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -21,11 +22,13 @@ namespace ARnatomy.Areas.Identity.Pages.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly INotyfService _notyf;
 
-        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender, INotyfService notyf)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _notyf = notyf;
         }
 
         /// <summary>
@@ -57,7 +60,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
+                    _notyf.Error("Email does not exist");
                     return RedirectToPage("./ForgotPasswordConfirmation");
                 }
 
@@ -75,8 +78,8 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                     Input.Email,
                     "Reset Password",
                     $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                return RedirectToPage("./ForgotPasswordConfirmation");
+                _notyf.Success("Reset Email sent! Please check your email");
+                return RedirectToPage("./ForgotPassword");
             }
 
             return Page();
