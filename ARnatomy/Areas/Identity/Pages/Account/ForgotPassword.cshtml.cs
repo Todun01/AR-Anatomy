@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ARnatomy.Areas.Identity.Pages.Account
 {
@@ -64,10 +65,11 @@ namespace ARnatomy.Areas.Identity.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(Input.Email);
+                var normalizedEmail = Input.Email.Trim().ToUpperInvariant();
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.NormalizedEmail == normalizedEmail);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    _logger.LogInformation(Input.Email);
+                    _logger.LogInformation(normalizedEmail);
                     _notyf.Error("Email does not exist");
                     return RedirectToPage("./ForgotPassword");
                 }
