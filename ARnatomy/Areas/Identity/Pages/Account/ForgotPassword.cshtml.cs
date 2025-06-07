@@ -65,11 +65,10 @@ namespace ARnatomy.Areas.Identity.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                var normalizedEmail = Input.Email.Trim().ToUpperInvariant();
-                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.NormalizedEmail == normalizedEmail);
+                var user = await _userManager.FindByEmailAsync(Input.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    _logger.LogInformation(normalizedEmail);
+                    _logger.LogInformation(Input.Email);
                     _notyf.Error("Email does not exist");
                     return RedirectToPage("./ForgotPassword");
                 }
