@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace ARnatomy.Areas.Identity.Pages.Account
 {
@@ -23,11 +24,16 @@ namespace ARnatomy.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly INotyfService _notyf;
 
-        public ResendEmailConfirmationModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender)
+        public ResendEmailConfirmationModel(
+            UserManager<ApplicationUser> userManager, 
+            IEmailSender emailSender,
+            INotyfService notyf)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _notyf = notyf;
         }
 
         /// <summary>
@@ -66,7 +72,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+                _notyf.Error("Email does not exist");
                 return Page();
             }
 
@@ -88,12 +94,12 @@ namespace ARnatomy.Areas.Identity.Pages.Account
             } catch(Exception ex)
             {
                 _logger.LogError($"Email sending failed: {ex.Message}");
-                ModelState.AddModelError(string.Empty, "There was a problem sending the confirmation email.");
+                _notyf.Error("There was a problem sending the confirmation email.");
                 return Page();
             }
 
 
-            ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+            _notyf.Success("Verification email sent. Please check your email.");
             return Page();
         }
     }
