@@ -23,7 +23,6 @@ namespace ARnatomy.Areas.Identity.Pages.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
-        private readonly ILogger<RegisterModel> _logger;
         private readonly INotyfService _notyf;
 
         public ResendEmailConfirmationModel(
@@ -84,22 +83,12 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                 pageHandler: null,
                 values: new { userId = userId, code = code },
                 protocol: Request.Scheme);
-            try
-            {
-                await _emailSender.SendEmailAsync(
+            await _emailSender.SendEmailAsync(
                 Input.Email,
                 "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-            } catch(Exception ex)
-            {
-                _logger.LogError($"Email sending failed: {ex.Message}");
-                _notyf.Error("There was a problem sending the confirmation email.");
-                return Page();
-            }
-
-
-            _notyf.Success("Verification email sent. Please check your email.");
+            _notyf.Success("Verification email sent. Please check your email");
             return Page();
         }
     }
