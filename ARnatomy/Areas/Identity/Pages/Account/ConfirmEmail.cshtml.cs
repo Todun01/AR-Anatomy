@@ -52,8 +52,10 @@ namespace ARnatomy.Areas.Identity.Pages.Account
             }
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
-
+            //_logger.LogInformation(user.ToString());
+            //_logger.LogInformation(code);
             var result = await _userManager.ConfirmEmailAsync(user, code);
+            _logger.LogInformation(result.ToString());
             StatusMessage = result.Succeeded ? "Congrats! Your email has been confirmed" : "Error confirming your email.";
             return Page(); // return
         }

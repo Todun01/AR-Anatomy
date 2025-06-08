@@ -24,15 +24,18 @@ namespace ARnatomy.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly INotyfService _notyf;
+        private readonly ILogger<ConfirmEmailModel> _logger;
 
         public ResendEmailConfirmationModel(
             UserManager<ApplicationUser> userManager, 
             IEmailSender emailSender,
-            INotyfService notyf)
+            INotyfService notyf,
+            ILogger<ConfirmEmailModel> logger)
         {
             _userManager = userManager;
             _emailSender = emailSender;
             _notyf = notyf;
+            _logger = logger;
         }
 
         /// <summary>
@@ -77,6 +80,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
 
             var userId = await _userManager.GetUserIdAsync(user);
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            _logger.LogInformation(code);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             var callbackUrl = Url.Page(
                 "/Account/ConfirmEmail",
@@ -87,7 +91,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                 Input.Email,
                 "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
+            
             _notyf.Success("Verification email sent. Please check your email");
             return Page();
         }
