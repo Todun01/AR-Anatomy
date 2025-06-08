@@ -54,12 +54,13 @@ namespace ARnatomy.Areas.Identity.Pages.Account
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             //_logger.LogInformation(user.ToString());
             //_logger.LogInformation(code);
-            var result = await _userManager.ConfirmEmailAsync(user, code);
+            var newUser = await _userManager.FindByEmailAsync(user.Email);
+            var result = await _userManager.ConfirmEmailAsync(newUser, code);
             if (!result.Succeeded)
             {
                 foreach(var error in result.Errors)
                 {
-                    ModelState.AddModelError(String.Empty, error.Description.ToString());
+                    _logger.LogInformation(error.Description.ToString());
                 }
                 StatusMessage = "Error confirming your email.";
             }
@@ -67,7 +68,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
             {
                 StatusMessage = "Congrats! Your email has been confirmed";
             }
-            _logger.LogInformation(result.ToString());
+            //_logger.LogInformation(result.ToString());
             return Page(); // return
         }
     }
