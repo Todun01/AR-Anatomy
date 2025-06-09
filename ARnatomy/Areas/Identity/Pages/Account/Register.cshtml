@@ -31,11 +31,10 @@
                 <label asp-for="Input.School">School/University</label>
                 <span asp-validation-for="Input.School" class="text-danger"></span>
             </div>
-            
             <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="on" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <input asp-for="Input.CourseOfStudy" class="form-control" autocomplete="on" placeholder="Nursing Science" />
+                <label asp-for="Input.CourseOfStudy">Course of Study</label>
+                <span asp-validation-for="Input.CourseOfStudy" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />

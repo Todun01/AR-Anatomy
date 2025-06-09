@@ -51,11 +51,11 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                 return NotFound($"Unable to load user with ID '{userId}'."); // return
             }
 
-            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            string decodedCode = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             //_logger.LogInformation(user.ToString());
-            //_logger.LogInformation(code);
-            var newUser = await _userManager.FindByEmailAsync(user.Email);
-            var result = await _userManager.ConfirmEmailAsync(newUser, code);
+            _logger.LogInformation(decodedCode);
+            var result = await _userManager.ConfirmEmailAsync(user, decodedCode);
+            
             if (!result.Succeeded)
             {
                 foreach(var error in result.Errors)
@@ -68,7 +68,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
             {
                 StatusMessage = "Congrats! Your email has been confirmed";
             }
-            //_logger.LogInformation(result.ToString());
+            _logger.LogInformation(result.ToString());
             return Page(); // return
         }
     }
