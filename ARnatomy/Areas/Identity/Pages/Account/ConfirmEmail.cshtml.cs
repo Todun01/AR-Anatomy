@@ -54,6 +54,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
             string decodedCode = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             //_logger.LogInformation(user.ToString());
             _logger.LogInformation(decodedCode);
+            _logger.LogInformation($"User loaded: {System.Text.Json.JsonSerializer.Serialize(user)}");
             var result = await _userManager.ConfirmEmailAsync(user, decodedCode);
             
             if (!result.Succeeded)
