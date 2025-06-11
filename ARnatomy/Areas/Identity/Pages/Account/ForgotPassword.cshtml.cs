@@ -23,15 +23,18 @@ namespace ARnatomy.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly INotyfService _notyf;
+        private readonly ILogger<ForgotPasswordModel> _logger;
 
         public ForgotPasswordModel(
             UserManager<ApplicationUser> userManager, 
             IEmailSender emailSender,
-            INotyfService notyf)
+            INotyfService notyf,
+            ILogger<ForgotPasswordModel> logger)
         {
             _userManager = userManager;
             _emailSender = emailSender;
             _notyf = notyf;
+            _logger = logger;
         }
 
         /// <summary>
@@ -70,7 +73,9 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                 // For more information on how to enable account confirmation and password reset please
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                _logger.LogInformation(code);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                
                 var callbackUrl = Url.Page(
                     "/Account/ResetPassword",
                     pageHandler: null,

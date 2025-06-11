@@ -20,9 +20,12 @@ namespace ARnatomy.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<ResetPasswordModel> _logger;
 
-        public ResetPasswordModel(UserManager<ApplicationUser> userManager)
+        public ResetPasswordModel(
+            UserManager<ApplicationUser> userManager,
+            ILogger<ResetPasswordModel> logger)
         {
             _userManager = userManager;
+            _logger = logger;
         }
 
         /// <summary>
@@ -102,7 +105,8 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                 // Don't reveal that the user does not exist
                 return RedirectToPage("./ResetPasswordConfirmation");
             }
-
+            _logger.LogInformation(user.ToString());
+            _logger.LogInformation(Input.Code);
             var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
             if (result.Succeeded)
             {
