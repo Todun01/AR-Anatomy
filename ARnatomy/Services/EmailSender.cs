@@ -38,7 +38,8 @@ namespace ARnatomy.Services
                 var smtpUser = _configuration["SmtpSettings:Username"];
                 var smtpPass = _configuration["SmtpSettings:Password"];
 
-                await client.ConnectAsync(smtpHost, smtpPort, SecureSocketOptions.StartTls);
+                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                await client.ConnectAsync(smtpHost, smtpPort, SecureSocketOptions.SslOnConnect);
                 await client.AuthenticateAsync(smtpUser, smtpPass);
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true);
