@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
-using System.Net;
-using System.Net.Mail;
+using MimeKit;
 using System.Threading.Tasks;
 
 namespace ARnatomy.Services
@@ -17,27 +18,36 @@ namespace ARnatomy.Services
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            var smtpClient = new SmtpClient
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("ARnatomy", _configuration["SmtpSettings:From"]));
+            message.To.Add(MailboxAddress.Parse(email));
+            message.Subject = subject;
+
+            var bodyBuilder = new BodyBuilder
             {
-                Host = _configuration["SmtpSettings:Host"],
-                Port = int.Parse(_configuration["SmtpSettings:Port"]),
-                EnableSsl = true,
-                Credentials = new NetworkCredential(
-                    _configuration["SmtpSettings:Username"],
-                    _configuration["SmtpSettings:Password"])
+                HtmlBody = htmlMessage
             };
+            message.Body = bodyBuilder.ToMessageBody();
 
-            var mailMessage = new MailMessage
+            using var client = new SmtpClient();
+
+            try
             {
-                From = new MailAddress(_configuration["SmtpSettings:From"]),
-                Subject = subject,// subject of mail
-                Body = htmlMessage, // body of email
-                IsBodyHtml = true // boolean check
-            };
+                var smtpHost = _configuration["SmtpSettings:Host"];
+                var smtpPort = int.Parse(_configuration["SmtpSettings:Port"]);
+                var smtpUser = _configuration["SmtpSettings:Username"];
+                var smtpPass = _configuration["SmtpSettings:Password"];
 
-            mailMessage.To.Add(email);
-
-            await smtpClient.SendMailAsync(mailMessage);
+                await client.ConnectAsync(smtpHost, smtpPort, SecureSocketOptions.StartTls);
+                await client.AuthenticateAsync(smtpUser, smtpPass);
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+            }
+            catch (System.Exception ex)
+            {
+                throw new System.Exception("MailKit email sending failed: " + ex.Message);
+            }
         }
     }
 }
+
