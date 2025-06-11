@@ -18,6 +18,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
     public class ResetPasswordModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<ResetPasswordModel> _logger;
 
         public ResetPasswordModel(UserManager<ApplicationUser> userManager)
         {
