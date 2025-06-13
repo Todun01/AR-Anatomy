@@ -161,9 +161,10 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
                     try
                     {
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                        var emailTemplate = System.IO.File.ReadAllText("wwwroot/email-templates/confirm-email.html");
+                        var emailBody = emailTemplate.Replace("{{CONFIRM_URL}}", HtmlEncoder.Default.Encode(callbackUrl));
 
+                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email", emailBody);
                     }
                     catch (Exception ex) {
                         _logger.LogError($"Email sending failed: {ex.Message}");
