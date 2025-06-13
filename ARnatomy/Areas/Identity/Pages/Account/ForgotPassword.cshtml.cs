@@ -81,11 +81,21 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                     pageHandler: null,
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
-
-                await _emailSender.SendEmailAsync(
-                    Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                try
+                {
+                    var emailTemplate = System.IO.File.ReadAllText("wwwroot/email-templates/password-reset.html");
+                    var emailBody = emailTemplate
+                        .Replace("{{CONFIRM_URL}}", HtmlEncoder.Default.Encode(callbackUrl))
+                        .Replace("{{USERNAME}}", user.FirstName);
+                    await _emailSender.SendEmailAsync(Input.Email, "Reset your password", emailBody);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Email sending failed: {ex.Message}");
+                    _notyf.Error("There was a problem sending the reset email.");
+                    //ModelState.AddModelError(string.Empty, "There was a problem sending the confirmation email.");
+                    return Page();
+                }
                 _notyf.Success("Reset email sent. Please check your inbox.");
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

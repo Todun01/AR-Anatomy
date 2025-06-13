@@ -166,7 +166,9 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                     try
                     {
                         var emailTemplate = System.IO.File.ReadAllText("wwwroot/email-templates/confirm-email.html");
-                        var emailBody = emailTemplate.Replace("{{CONFIRM_URL}}", HtmlEncoder.Default.Encode(callbackUrl));
+                        var emailBody = emailTemplate
+                            .Replace("{{CONFIRM_URL}}", HtmlEncoder.Default.Encode(callbackUrl))
+                            .Replace("{{USERNAME}}", user.FirstName);
 
                         await _emailSender.SendEmailAsync(Input.Email, "Confirm your email", emailBody);
                     }
