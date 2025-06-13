@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: left;
+            font-size: 28px;
+            color: #2e979b;
+            margin-bottom: 20px;
+            padding-top: 3%;
+        }
+        .body-text {
+            font-size: 16px;
+            color: #333333;
+            line-height: 1.6;
+        }
+        .cta-button {
+            display: inline-block;
+            margin-top: 1%;
+            padding: 12px 25px;
+            font-size: 16px;
+            color: white;
+            background-color: #2e979b;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .footer {
+            margin-top: 1%;
+            font-size: 12px;
+            color: #999999;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="justify-content: center;display: flex;flex-direction: column;">
+            <div style="justify-content: center;display: flex;">
+                <img src="AR-NATOMY_LOGO_-spaced-removebg-preview.png" alt="">
+            </div>
+            <div class="header">Confirm Your Email</div>
+        </div>
+        <div class="body-text">
+            <p>Hello,</p>
+            <p>Thank you for registering with <strong>ARnatomy</strong>.</p>
+            <p style="margin-bottom: 0;">Please click the button below to confirm your email address and complete your registration:</p>
+            <p style="text-align: center;margin-top: 0;">
+                <a class="cta-button" href="{{CONFIRM_URL}}">Confirm Email</a>
+            </p>
+            <p>If you did not sign up for this account, you can safely ignore this email.</p>
+        </div>
+        <div class="footer">
+            &copy; 2025 ARnatomy. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
