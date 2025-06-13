@@ -77,7 +77,11 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                 _notyf.Error("Email does not exist");
                 return Page();
             }
-
+            if(await _userManager.IsEmailConfirmedAsync(user))
+            {
+                _notyf.Information("Your email is already confirmed. Please log in");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
             var userId = await _userManager.GetUserIdAsync(user);
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             _logger.LogInformation(code);
@@ -87,10 +91,20 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                 pageHandler: null,
                 values: new { userId = userId, code = code },
                 protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                Input.Email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+            
+            try
+            {
+                var emailTemplate = System.IO.File.ReadAllText("wwwroot/email-templates/confirm-email.html");
+                var emailBody = emailTemplate.Replace("{{CONFIRM_URL}}", HtmlEncoder.Default.Encode(callbackUrl));
+                await _emailSender.SendEmailAsync(Input.Email, "Confirm your email", emailBody);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Email sending failed: {ex.Message}");
+                _notyf.Error("There was a problem sending the confirmation email.");
+                //ModelState.AddModelError(string.Empty, "There was a problem sending the confirmation email.");
+                return Page();
+            }
             
             _notyf.Success("Verification email sent. Please check your email");
             return Page();

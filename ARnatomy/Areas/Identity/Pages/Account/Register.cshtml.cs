@@ -12,6 +12,7 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using ARnatomy.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -31,13 +32,15 @@ namespace ARnatomy.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly INotyfService _notyf;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            INotyfService notyf)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -45,6 +48,7 @@ namespace ARnatomy.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _notyf = notyf;
         }
 
         /// <summary>
@@ -168,7 +172,8 @@ namespace ARnatomy.Areas.Identity.Pages.Account
                     }
                     catch (Exception ex) {
                         _logger.LogError($"Email sending failed: {ex.Message}");
-                        ModelState.AddModelError(string.Empty, "There was a problem sending the confirmation email.");
+                        _notyf.Error("There was a problem sending the confirmation email.");
+                        //ModelState.AddModelError(string.Empty, "There was a problem sending the confirmation email.");
                         return Page();
                     }
 
