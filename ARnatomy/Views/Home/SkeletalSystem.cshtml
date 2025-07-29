@@ -783,7 +783,7 @@
             <div class="col-lg-6">
                 <div class="about-text go-to" style="display: flex; flex-direction: column; justify-content: center; align-content: center; flex-wrap: wrap;">
                     <h3 class="dark-color">The Skeletal System</h3>
-                    <a id="view-in-ar-full" class="ar-btn" style="text-align:center">View in AR</a>
+                    <a id="skeletal-full" class="ar-btn" style="text-align:center" rel="ar">View in AR</a>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -856,7 +856,31 @@
             <div style="display:flex;">
                 <h3 class="chakra-heading css-gvl5d5" id="skull">Skull</h3>
                 <div style="align-content:center;width:100%">
-                    <a id="view-in-ar-skull" class="ar-btn" style="text-align:center;padding:1%">View in AR</a>
+                    <button type="button" class="ar-btn" data-bs-toggle="modal" data-bs-target="#skullModal" style="text-align:center;padding:1%;margin-top:0">
+                        View in AR
+                    </button>
+                    
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="skullModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Please select a model</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            
+                        </div>
+                        <div class="modal-body" style="justify-content:space-evenly;display:flex">
+                            <a id="skeletal-outerskull" class="ar-btn" style="text-align:center;padding:1%">Skull Exterior</a>
+                            <a id="skeletal-innerskull" class="ar-btn" style="text-align:center;padding:1%">Skull Interior</a>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <p>
@@ -887,7 +911,7 @@
                 </div>
                 
                 <div style="align-content:center;width:100%">
-                    <a id="view-in-ar-hyoid" class="ar-btn" style="text-align:center;padding:1%">View in AR</a>
+                    <a id="skeletal-hyoid" class="ar-btn" style="text-align:center;padding:1%">View in AR</a>
                 </div>
             </div>
             
@@ -917,7 +941,7 @@
                 </div>
 
                 <div style="align-content:center;width:100%">
-                    <a id="view-in-ar-hyoid" class="ar-btn" style="text-align:center;padding:1%">View in AR</a>
+                    <a id="skeletal-vertebrae" class="ar-btn" style="text-align:center;padding:1%">View in AR</a>
                 </div>
             </div>
             
@@ -962,7 +986,15 @@
                 letter of its region and its position along the superior-inferior axis. For example, the
                 most superior thoracic vertebra is called T1 and the most inferior is called T12.
             </p>
-            <h3 class="chakra-heading css-gvl5d5" id="ribs-and-sternum">Ribs and Sternum</h3>
+            <div style="display:flex;">
+                <div>
+                    <h3 class="chakra-heading css-gvl5d5" id="ribs-and-sternum">Ribs and Sternum</h3>
+                </div>
+
+                <div style="align-content:center;width:100%">
+                    <a id="skeletal-ribs" class="ar-btn" style="text-align:center;padding:1%">View in AR</a>
+                </div>
+            </div>         
             <p>
                 The sternum, or breastbone, is a thin, knife-shaped bone located along the midline of the
                 anterior side of the <strong>
@@ -980,10 +1012,19 @@
                 also false ribs, but are also considered to be &quot;floating ribs&quot; because they do not
                 have any cartilage attachment to the sternum at all.
             </p>
-            <h3 class="chakra-heading css-gvl5d5" id="pectoral-girdle-and-upper-limb">
-                Pectoral Girdle and
-                Upper Limb
-            </h3>
+            <div style="display:flex;">
+                <div>
+                    <h3 class="chakra-heading css-gvl5d5" id="pectoral-girdle-and-upper-limb">
+                        Pectoral Girdle and
+                        Upper Limb
+                    </h3>
+                </div>
+
+                <div style="align-content:center;width:100%">
+                    <a id="skeletal-upperlimb" class="ar-btn" style="text-align:center;padding:1%">View in AR</a>
+                </div>
+            </div>
+            
             <p>
                 The pectoral girdle connects the <strong>
                     upper limb (arm) bones
@@ -1010,10 +1051,19 @@
                 fingers. Each finger has three bones known as phalanges, except for the thumb, which only
                 has two phalanges.
             </p>
-            <h3 class="chakra-heading css-gvl5d5" id="pelvic-girdle-and-lower-limb">
-                Pelvic Girdle and Lower
-                Limb
-            </h3>
+            <div style="display:flex;">
+                <div>
+                    <h3 class="chakra-heading css-gvl5d5" id="pelvic-girdle-and-lower-limb">
+                        Pelvic Girdle and Lower
+                        Limb
+                    </h3>
+                </div>
+
+                <div style="align-content:center;width:100%">
+                    <a id="skeletal-vertebrae" class="ar-btn" style="text-align:center;padding:1%">View in AR</a>
+                </div>
+            </div>
+            
             <p>
                 Formed by the left and right hip bones, the pelvic girdle connects the <strong>
                     lower limb (leg) bones
